@@ -1,0 +1,9 @@
+rootProject.name = 'nebulacloud'
+include 'nebula-framework'
+
+void initializeSubProjects(String rootProject, String... names) {
+    for (final def name in names) {
+        include(rootProject + ":" + name)
+        findProject(":" + rootProject + ":" + name).setName(name)
+    }
+}
