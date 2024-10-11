@@ -7,5 +7,6 @@ void initializeSubProjects(String rootProject, String... names) {
         findProject(":" + rootProject + ":" + name).setName(name)
     }
 }
+
 include 'nebula-api'
 
