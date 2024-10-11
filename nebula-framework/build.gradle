@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'java'
+    id 'java-library'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -22,9 +22,26 @@ dependencies {
 
     compileOnly 'commons-io:commons-io:2.6'
     implementation 'io.netty:netty-all:4.1.79.Final'
-    implementation fileTree(dir: '../nebula-api/build/libs', include: 'nebula-api-1.0-FLUORINE-dev.jar')
+
+    compileOnly project(':nebula-api')  // Hier wird nebula-api als Abhängigkeit hinzugefügt
 }
 
 shadowJar {
     archiveFileName.set("nebula-networking.jar")
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
 }
