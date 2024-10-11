@@ -22,15 +22,16 @@ dependencies {
     compileOnly 'org.jline:jline:3.21.0'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    implementation 'io.netty:netty-all:4.1.79.Final'
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation group: 'io.netty', name: 'netty-all', version: '4.1.79.Final'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 
-    compileOnly project(':nebula-framework')  // Hier wird nebula-framework als Abhängigkeit hinzugefügt
+    compileOnly fileTree(dir: '../nebula-framework/build/libs', include: '*.jar')
 }
 
 shadowJar {
     archiveFileName.set("nebula-api.jar")
 }
+
 
 def targetJavaVersion = 17
 java {

@@ -23,7 +23,7 @@ dependencies {
     compileOnly 'commons-io:commons-io:2.6'
     implementation 'io.netty:netty-all:4.1.79.Final'
 
-    compileOnly project(':nebula-api')  // Hier wird nebula-api als Abhängigkeit hinzugefügt
+    implementation fileTree(dir: '../nebula-api/build/libs', include: 'nebula-api.jar')
 }
 
 shadowJar {
